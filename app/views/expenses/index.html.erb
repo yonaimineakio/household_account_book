@@ -1,0 +1,52 @@
+
+<%#変数初期化 %>
+<% monthly_expense = 0%>
+<% monthly_total = 0%>
+<%# ------- %>
+
+<%#月の合計収入, 出費 %>
+<% @expenses.each do |expense|%>
+<% monthly_total += expense.income.income%>
+<% monthly_expense += expense.food_expense + expense.entertaiment_expense + expense.mobile_bill + expense.card_fee%>
+<% end %>
+<%# ------- %>
+
+<header>
+  <div>
+  <h1>今月の総収入<%= monthly_total%></h1>
+  </div>
+  <div>
+    <h1>今月の総出費<%= monthly_expense%></h1>
+  </div>
+  <div>
+    <h1>残金<%=monthly_total - monthly_expense%></h1>
+  </div>
+</header>
+<table class = "table table-bordered border-primary table-hover table-sm posts_table">
+ <thead class="bg-info text-light">
+  <tr>
+    <th>総消費額</th>
+    <th>食費</th>
+    <th>交際費</th>
+    <th>携帯代</th>
+    <th>クレカ代</th>
+    <th>日時</th>
+    <th>削除</th>
+  <tr>
+  </thead>
+ <tbody>
+   <% @expenses.each do |expense|%>
+    <tr>
+      <td><%= expense.food_expense + expense.entertaiment_expense + expense.mobile_bill + expense.card_fee%></td>
+      <td><%= expense.food_expense%></td>
+      <td><%= expense.entertaiment_expense%></td>
+      <td><%= expense.mobile_bill%></td>
+      <td><%= expense.card_fee%></td>
+      <td><%= l expense.updated_at%></td>
+      <td><%= link_to("delete", "/expenses/#{expense.id}")%></td>
+    </tr>
+   <% end%>
+
+ </tbody>
+
+</table>
