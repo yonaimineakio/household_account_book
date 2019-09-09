@@ -1,16 +1,17 @@
 class ExpensesController < ApplicationController
 
-  before_action :correct_income, only: [:create, :new, :destroy]
+  before_action :correct_income, only: [:create, :new]
 
 
   def new
+
     @expense = @income.expenses.build
 
   end
 
   def index
-    @expenses = Expense.all
-
+    @q = Expense.ransack(params[:q])
+    @expenses = @q.result(distinct: true).page(params[:page])
   end
 
 
@@ -23,29 +24,27 @@ class ExpensesController < ApplicationController
     if expense.save
 
       flash[:sucess] = "入力完了"
-      redirect_to expense_index_path
+      redirect_to expenses_index_path
     else
-
       render "expenses/new"
-
     end
-
-
-
   end
 
   def destroy
+    @expense = Expense.find(params[:id])
     if @expense.destroy
       flash[:sucess] = "deleted!"
+      redirect_to expenses_index_path
     else
-      redirecto_to expense_index_path
+      print "乙wwwwwwwwwwwwwww"
+    end
+
   end
-end
 
 
   private
     def expense_params
-      params.require(:expense).permit(:expense, :name, :food_expense, :entertaiment_expense, :mobile_bill, :card_fee)
+      params.require(:expense).permit(:food_expense, :entertaiment_expense, :mobile_bill, :card_fee, :income_id)
     end
 
 

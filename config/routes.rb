@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
+  root 'static_pages#new'
   resources :incomes do
     resources :expenses ,only: [:new, :create]
   end
 
-  get "expense/index", to: "expenses#index"
+  get "expenses/index", to: "expenses#index"
 
   delete "expenses/:id", to: "expenses#destroy"
 

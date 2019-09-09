@@ -1,27 +1,20 @@
 <%= form_for([@income, @income.expenses.build]) do |f|%>
-
-
- <div class="form-groupe">
-   <%= f.label :expense, "消費"%>
-   <%= f.text_field :expense, class: "form-control"%>
-  </div>
-
   <div class="form-groupe">
     <%= f.label :food_expense, "食費"%>
-    <%= f.text_field :food_expense, class: "form-control"%>
+    <%= f.text_field :food_expense, class: "form-control", value: 0%>
   </div>
 
   <div class="form-groupe">
     <%= f.label :entertaiment_expense, "交際費" %>
-    <%= f.text_field :entertaiment_expense, class: "form-control" %>
+    <%= f.text_field :entertaiment_expense, class: "form-control", value: 0 %>
   </div>
   <div class="form-groupe">
     <%= f.label :mobile_bill, "携帯代"%>
-    <%= f.text_field :mobile_bill, class: "form-control"%>
+    <%= f.text_field :mobile_bill, class: "form-control", value: 0%>
   </div>
   <div class="form-groupe">
     <%= f.label :card_fee, "クレカ代"%>
-    <%= f.text_field :card_fee, class: "form-control"%>
+    <%= f.text_field :card_fee, class: "form-control", value: 0%>
   </div>
 
 

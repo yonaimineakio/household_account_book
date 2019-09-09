@@ -3,25 +3,33 @@
 <% monthly_expense = 0%>
 <% monthly_total = 0%>
 <%# ------- %>
+<%= search_form_for @q, url: expenses_index_path do |f| %>
+<%= f.date_field :created_at_gteq %>
+<%= f.label :~%>
+<%= f.date_field :created_at_lteq_end_of_day %>
 
+<%= f.submit "検索"%>
+<% end%>
 <%#月の合計収入, 出費 %>
 <% @expenses.each do |expense|%>
 <% monthly_total += expense.income.income%>
 <% monthly_expense += expense.food_expense + expense.entertaiment_expense + expense.mobile_bill + expense.card_fee%>
 <% end %>
 <%# ------- %>
-
 <header>
   <div>
-  <h1>今月の総収入<%= monthly_total%></h1>
+  <h1>総収入<%= monthly_total%></h1>
   </div>
   <div>
-    <h1>今月の総出費<%= monthly_expense%></h1>
+    <h1>総出費<%= monthly_expense%></h1>
   </div>
   <div>
     <h1>残金<%=monthly_total - monthly_expense%></h1>
   </div>
 </header>
+<div>
+
+<div>
 <table class = "table table-bordered border-primary table-hover table-sm posts_table">
  <thead class="bg-info text-light">
   <tr>
@@ -43,10 +51,12 @@
       <td><%= expense.mobile_bill%></td>
       <td><%= expense.card_fee%></td>
       <td><%= l expense.updated_at%></td>
-      <td><%= link_to("delete", "/expenses/#{expense.id}")%></td>
+      <td><%= link_to("delete", "/expenses/#{expense.id}", {method: :delete})%></td>
     </tr>
    <% end%>
-
  </tbody>
-
 </table>
+<div>
+  <%= link_to "Add expense", "/incomes/new"%>
+</div>
+<%= paginate @expenses %>
