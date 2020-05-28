@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 
-gem "kaminari", '~> 0.17.0'
+gem "kaminari", '~> 1.2.1'
 
 gem "kaminari-bootstrap", "~> 3.0.1"
 
